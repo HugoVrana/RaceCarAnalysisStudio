@@ -468,7 +468,7 @@ public class CorneringAnalyserUtil {
         }
 
         /**
-         * @param - the steering angle delta in degrees (�) to be set.
+         * @param delta- the steering angle delta in degrees (�) to be set.
          */
         public void setDelta(Double delta) {
             this.delta = delta;
