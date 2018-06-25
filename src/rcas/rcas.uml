@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="1050.0">rcas.model</node>
+    <node x="0.0" y="0.0">rcas.util.CorneringAnalyserUtil</node>
+    <node x="0.0" y="809.0">rcas.controller.RCASDetailViewController</node>
+    <node x="692.0" y="809.0">rcas.controller.RCASMainViewController</node>
+    <node x="306.0" y="1050.0">RCASMain</node>
+    <node x="129.0" y="522.0">rcas.util.CorneringAnalyserUtil.MMMSinglePoint</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="rcas.util.CorneringAnalyserUtil.MMMSinglePoint" target="rcas.util.CorneringAnalyserUtil">
+      <point x="0.0" y="-121.0" />
+      <point x="0.0" y="236.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8940149625935162" x="493.96931659693166" y="510.1924686192468" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
