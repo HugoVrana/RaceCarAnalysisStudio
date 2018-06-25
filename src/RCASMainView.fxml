@@ -57,7 +57,6 @@
                         <Label fx:id="lblFrontAxleLoad" text="%lblFrontAxleLoad.text" GridPane.rowIndex="2"
                                GridPane.columnIndex="0"/>
                         <TextField fx:id="txtFrontAxleLoad" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
                         <Label fx:id="lblRearAxleTireModel" text="%lblRearAxleTireModel.text" GridPane.rowIndex="0"
                                GridPane.columnIndex="2"/>
                         <TextField fx:id="txtRearAxleTireModel" GridPane.rowIndex="0" GridPane.columnIndex="3"/>

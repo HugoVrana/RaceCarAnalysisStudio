@@ -2,7 +2,6 @@ package rcas.controller;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -24,6 +23,9 @@ public class RCASMainViewController {
     private GridPane mainPane;
 
     @FXML
+    private GridPane detailsPane;
+
+    @FXML
     private Button btnAdd;
 
     @FXML
@@ -40,6 +42,51 @@ public class RCASMainViewController {
 
     @FXML
     private LineChart<Number, Number> mainChart;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtTrack;
+
+    @FXML
+    private TextField txtWheelbase;
+
+    @FXML
+    private TextField txtCogHeight;
+
+    @FXML
+    private TextField txtFrontRollDist;
+
+    @FXML
+    private TextField txtCornerWeightFL;
+
+    @FXML
+    private TextField txtCornerWeightFR;
+
+    @FXML
+    private TextField txtCornerWeightRL;
+
+    @FXML
+    private TextField txtCornerWeightRR;
+
+    @FXML
+    private TextField txtFrontAxleTireModel;
+
+    @FXML
+    private TextField txtFrontAxleSlipAngel;
+
+    @FXML
+    private TextField txtFrontAxleLoad;
+
+    @FXML
+    private TextField txtRearAxleTireModel;
+
+    @FXML
+    private TextField txtRearAxleSlipAngel;
+
+    @FXML
+    private TextField txtRearAxleLoad;
 
     @FXML
     private ResourceBundle resources;
@@ -143,20 +190,6 @@ public class RCASMainViewController {
     @FXML
     private void btnSaveClicked() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(RCASMainViewController.class.getResource("/RCASMainView.fxml"));
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("RCASResources");
-            fxmlLoader.setResources(resourceBundle);
-
-            GridPane mainPane = fxmlLoader.load();
-
-            TabPane tabPane = (TabPane) mainPane.lookup("#tabPaneCar");
-            Tab tabDetails = tabPane.getTabs().get(0);
-            GridPane detailsPane = (GridPane) tabDetails.getContent().lookup("#detailsPane");
-
-            TextField txtName = (TextField) detailsPane.lookup("#txtName");
-
-            TextField txtTrack = (TextField) detailsPane.lookup("#txtTrack");
             Double track;
             try {
                 track = Double.parseDouble(txtTrack.getText());
@@ -164,7 +197,6 @@ public class RCASMainViewController {
                 track = Double.valueOf(-1);
             }
 
-            final TextField txtWheelbase = (TextField) detailsPane.lookup("#txtWheelbase");
             Double wheelbase;
             try {
                 wheelbase = Double.parseDouble(txtWheelbase.getText());
@@ -172,7 +204,6 @@ public class RCASMainViewController {
                 wheelbase = Double.valueOf(-1);
             }
 
-            final TextField txtCogHeight = (TextField) detailsPane.lookup("#txtCogHeight");
             Double cogHeight;
             try {
                 cogHeight = Double.parseDouble(txtCogHeight.getText());
@@ -180,7 +211,6 @@ public class RCASMainViewController {
                 cogHeight = Double.valueOf(-1);
             }
 
-            final TextField txtFrontRollDist = (TextField) detailsPane.lookup("#txtFrontRollDist");
             Double frontRollDist;
             try {
                 frontRollDist = Double.parseDouble(txtFrontRollDist.getText());
@@ -189,10 +219,6 @@ public class RCASMainViewController {
             }
 
             // Advanced
-            TitledPane cornerWeightTitledPane = (TitledPane) detailsPane.lookup("#tiltedPaneCornerWeight");
-            GridPane cornerWeightPane = (GridPane) cornerWeightTitledPane.lookup("#cornerWeightPane");
-
-            final TextField txtCornerWeightFL = (TextField) cornerWeightPane.lookup("#txtCornerWeightFL");
             Double cornerWeightFL;
             try {
                 cornerWeightFL = Double.parseDouble(txtCornerWeightFL.getText());
@@ -200,7 +226,6 @@ public class RCASMainViewController {
                 cornerWeightFL = Double.valueOf(-1);
             }
 
-            final TextField txtCornerWeightFR = (TextField) cornerWeightPane.lookup("#txtCornerWeightFR");
             Double cornerWeightFR;
             try {
                 cornerWeightFR = Double.parseDouble(txtCornerWeightFR.getText());
@@ -208,7 +233,6 @@ public class RCASMainViewController {
                 cornerWeightFR = Double.valueOf(-1);
             }
 
-            final TextField txtCornerWeightRL = (TextField) cornerWeightPane.lookup("#txtCornerWeightRL");
             Double cornerWeightRL;
             try {
                 cornerWeightRL = Double.parseDouble(txtCornerWeightRL.getText());
@@ -216,7 +240,6 @@ public class RCASMainViewController {
                 cornerWeightRL = Double.valueOf(-1);
             }
 
-            final TextField txtCornerWeightRR = (TextField) cornerWeightPane.lookup("#txtCornerWeightRR");
             Double cornerWeightRR;
             try {
                 cornerWeightRR = Double.parseDouble(txtCornerWeightRR.getText());
