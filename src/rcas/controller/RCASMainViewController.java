@@ -1,7 +1,9 @@
 package rcas.controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -91,6 +93,12 @@ public class RCASMainViewController {
     @FXML
     private ResourceBundle resources;
 
+    @FXML
+    private Tab tabCar;
+
+    @FXML
+    private Tab tabAllCars;
+
     private ArrayList<RaceCar> raceCars = new ArrayList<>();
 
     // endregion
@@ -166,14 +174,15 @@ public class RCASMainViewController {
     }
 
     private void BindCarsGrid() {
+        carsPane.setGridLinesVisible(true);
+        carsPane.add(new Label("Car Name"), 0, 0);
+        carsPane.add(new Label("Front Track"), 1, 0);
+        carsPane.add(new Label("Rear Track"), 2, 0);
         for (RaceCar car : raceCars) {
-            Integer indexCar = raceCars.indexOf(car);
-            Label lblName = new Label(car.getName());
-            Label lblFrontTrack = new Label(car.getFrontTrack().toString());
-            Label lblRearTrack = new Label(car.getRearTrack().toString());
-            carsPane.add(lblName, 0, indexCar);
-            carsPane.add(lblFrontTrack, 1, indexCar);
-            carsPane.add(lblRearTrack, 2, indexCar);
+            Integer indexCar = raceCars.indexOf(car) + 1;
+            carsPane.add(new Label(car.getName()), 0, indexCar);
+            carsPane.add(new Label(car.getFrontTrack().toString()), 1, indexCar);
+            carsPane.add(new Label(car.getRearTrack().toString()), 2, indexCar);
         }
     }
     // endregion
@@ -181,7 +190,7 @@ public class RCASMainViewController {
     // region Event-Handlers
     @FXML
     public void btnAddClicked() {
-        tabPaneCar.setVisible(true);
+        tabCar.setDisable(true);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
@@ -264,41 +273,36 @@ public class RCASMainViewController {
             detailsPane.setVisible(false);
             BindCarsGrid();
         } catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Controls could not be found");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Saving unsuccessful");
             alert.showAndWait();
         }
     }
 
     @FXML
     private void btnCancelClicked() {
-        TabPane tabPane = (TabPane) mainPane.lookup("#tabPaneCar");
-        Tab tabDetails = tabPane.getTabs().get(0);
-        GridPane detailsPane = (GridPane) tabDetails.getContent().lookup("#detailsPane");
-        TextField txtName = (TextField) detailsPane.lookup("#txtName");
         txtName.setText("");
-        TextField txtTrack = (TextField) detailsPane.lookup("#txtTrack");
-        txtTrack.setText("");
-        TextField txtWheelbase = (TextField) detailsPane.lookup("#txtWheelbase");
         txtWheelbase.setText("");
-        TextField txtCogHeight = (TextField) detailsPane.lookup("#txtCogHeight");
         txtCogHeight.setText("");
-        TextField txtFrontRollDist = (TextField) detailsPane.lookup("#txtFrontRollDist");
+        txtTrack.setText("");
         txtFrontRollDist.setText("");
-
-        // Advanced
-        TitledPane cornerWeightTitledPane = (TitledPane) detailsPane.lookup("#tiltedPaneCornerWeight");
-        GridPane cornerWeightPane = (GridPane) cornerWeightTitledPane.lookup("#cornerWeightPane");
-        TextField txtCornerWeightFL = (TextField) cornerWeightPane.lookup("#txtCornerWeightFL");
         txtCornerWeightFL.setText("");
-        TextField txtCornerWeightFR = (TextField) cornerWeightPane.lookup("#txtCornerWeightFR");
         txtCornerWeightFR.setText("");
-        TextField txtCornerWeightRL = (TextField) cornerWeightPane.lookup("#txtCornerWeightRL");
         txtCornerWeightRL.setText("");
-        TextField txtCornerWeightRR = (TextField) cornerWeightPane.lookup("#txtCornerWeightRR");
         txtCornerWeightRR.setText("");
-
-        detailsPane.setVisible(false);
+        txtFrontAxleTireModel.setText("");
+        txtFrontAxleSlipAngel.setText("");
+        txtFrontAxleLoad.setText("");
+        txtRearAxleTireModel.setText("");
+        txtRearAxleSlipAngel.setText("");
+        txtRearAxleLoad.setText("");
     }
 
+    @FXML
+    private void carsPaneMouseClicked(Event event) {
+        Node source = (Node) event.getSource();
+        Integer colIndex = GridPane.getColumnIndex(source);
+        Integer rowIndex = GridPane.getRowIndex(source);
+        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+    }
     // endregion
 }
