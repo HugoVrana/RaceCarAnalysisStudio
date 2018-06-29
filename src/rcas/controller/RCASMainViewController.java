@@ -182,7 +182,7 @@ public class RCASMainViewController {
     // region Event-Handlers
     @FXML
     public void btnAddClicked() {
-        tabCar.setDisable(true);
+        tabCar.setDisable(false);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
