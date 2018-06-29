@@ -3,7 +3,6 @@ package rcas.controller;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -40,7 +39,7 @@ public class RCASMainViewController {
     private TabPane tabPaneCar;
 
     @FXML
-    private GridPane carsPane;
+    private TableView carsTableView;
 
     @FXML
     private LineChart<Number, Number> mainChart;
@@ -174,15 +173,8 @@ public class RCASMainViewController {
     }
 
     private void BindCarsGrid() {
-        carsPane.setGridLinesVisible(true);
-        carsPane.add(new Label("Car Name"), 0, 0);
-        carsPane.add(new Label("Front Track"), 1, 0);
-        carsPane.add(new Label("Rear Track"), 2, 0);
         for (RaceCar car : raceCars) {
-            Integer indexCar = raceCars.indexOf(car) + 1;
-            carsPane.add(new Label(car.getName()), 0, indexCar);
-            carsPane.add(new Label(car.getFrontTrack().toString()), 1, indexCar);
-            carsPane.add(new Label(car.getRearTrack().toString()), 2, indexCar);
+            carsTableView.getItems().add(car);
         }
     }
     // endregion
@@ -298,11 +290,8 @@ public class RCASMainViewController {
     }
 
     @FXML
-    private void carsPaneMouseClicked(Event event) {
-        Node source = (Node) event.getSource();
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
-        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+    private void carsTableViewMouseClicked(Event event) {
+        Object carObj = carsTableView.getSelectionModel().getSelectedItem();
     }
     // endregion
 }
