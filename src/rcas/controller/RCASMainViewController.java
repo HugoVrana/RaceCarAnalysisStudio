@@ -188,6 +188,7 @@ public class RCASMainViewController {
         tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
         tabCar.getContent().setVisible(true);
+        tabs.getSelectionModel().select(tabCar);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
@@ -268,6 +269,10 @@ public class RCASMainViewController {
 
             raceCars.add(raceCar);
             detailsPane.setVisible(false);
+            btnSave.setVisible(false);
+            btnCancel.setVisible(false);
+            btnAdd.setVisible(true);
+
             BindCarsGrid();
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Saving unsuccessful");
