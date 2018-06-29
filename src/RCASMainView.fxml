@@ -13,6 +13,8 @@
         <Tab fx:id="tabAllCars" text="All Cars" closable="false">
             <TableView fx:id="carsTableView" GridPane.rowIndex="0" GridPane.columnIndex="0"
                        onMouseClicked="#carsTableViewMouseClicked"/>
+            <GridPane fx:id="carsPane" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                      onMouseClicked="#carsTableViewMouseClicked"/>
         </Tab>
         <Tab fx:id="tabCar" text="Car" closable="true">
             <TabPane fx:id="tabPaneCar" GridPane.rowIndex="2" GridPane.columnIndex="0">

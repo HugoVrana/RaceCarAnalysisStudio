@@ -39,6 +39,9 @@ public class RCASMainViewController {
     private TabPane tabPaneCar;
 
     @FXML
+    private GridPane carsPane;
+
+    @FXML
     private TableView carsTableView;
 
     @FXML
@@ -173,19 +176,18 @@ public class RCASMainViewController {
     }
 
     private void BindCarsGrid() {
-        for (RaceCar car : raceCars) {
-            carsTableView.getItems().add(car);
-        }
+        carsTableView.getItems().add(raceCars);
+
     }
     // endregion
 
     // region Event-Handlers
     @FXML
     public void btnAddClicked() {
-        tabCar.setDisable(true);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
+        tabPaneCar.setVisible(true);
     }
 
     @FXML
@@ -291,7 +293,8 @@ public class RCASMainViewController {
 
     @FXML
     private void carsTableViewMouseClicked(Event event) {
-        Object carObj = carsTableView.getSelectionModel().getSelectedItem();
+        Object carObjTable = carsTableView.getSelectionModel().getSelectedItem();
+        Object carObjGrid = carsTableView.getSelectionModel().getSelectedItem();
     }
     // endregion
 }
