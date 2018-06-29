@@ -9,7 +9,7 @@
           minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
           prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
           fx:controller="rcas.controller.RCASMainViewController" stylesheets="@RCASStyle.css">
-    <TabPane fx:id="tabGrid" GridPane.rowIndex="2" GridPane.columnIndex="0">
+    <TabPane fx:id="tabs" GridPane.rowIndex="2" GridPane.columnIndex="0">
         <Tab fx:id="tabAllCars" text="All Cars" closable="false">
             <TableView fx:id="carsTableView" GridPane.rowIndex="0" GridPane.columnIndex="0"
                        onMouseClicked="#carsTableViewMouseClicked"/>

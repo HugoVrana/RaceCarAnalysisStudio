@@ -93,6 +93,9 @@ public class RCASMainViewController {
     private ResourceBundle resources;
 
     @FXML
+    private TabPane tabs;
+
+    @FXML
     private Tab tabCar;
 
     @FXML
@@ -182,7 +185,9 @@ public class RCASMainViewController {
     // region Event-Handlers
     @FXML
     public void btnAddClicked() {
+        tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
+        tabCar.getContent().setVisible(true);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
