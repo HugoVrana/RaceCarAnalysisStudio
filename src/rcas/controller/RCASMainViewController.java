@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import rcas.model.MagicFormulaTireModel;
 import rcas.model.RaceCar;
 import rcas.model.TireModel;
@@ -37,9 +40,6 @@ public class RCASMainViewController {
 
     @FXML
     private TabPane tabPaneCar;
-
-    @FXML
-    private TableView carsTableView;
 
     @FXML
     private LineChart<Number, Number> mainChart;
@@ -90,6 +90,21 @@ public class RCASMainViewController {
     private TextField txtRearAxleLoad;
 
     @FXML
+    private TextField txtSlipAngleCoefficientC;
+
+    @FXML
+    private TextField txtSlipAngleCoefficientB;
+
+    @FXML
+    private TextField txtSlipAngleCoefficientE;
+
+    @FXML
+    private TextField txtSlipAngleCoefficientKA;
+
+    @FXML
+    private TextField txtSlipAngleCoefficientKB;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -101,6 +116,9 @@ public class RCASMainViewController {
     @FXML
     private Tab tabAllCars;
 
+    @FXML
+    private ListView<RaceCar> lvCars;
+
     private ArrayList<RaceCar> raceCars = new ArrayList<>();
 
     // endregion
@@ -109,6 +127,17 @@ public class RCASMainViewController {
 
     @FXML
     public void initialize() {
+
+        ColumnConstraints collumnConstraints = new ColumnConstraints();
+        collumnConstraints.setPercentWidth(100);
+        mainPane.getColumnConstraints().add(collumnConstraints);
+
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setPercentHeight(100);
+        mainPane.getRowConstraints().add(rowConstraints);
+
+        mainPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+
         // create race cars and calculate a chart.
         RaceCar myRaceCar_1 = new RaceCar(1, 420, 2, 3);
         TireModel myTireModel_1 = new MagicFormulaTireModel();
@@ -149,9 +178,10 @@ public class RCASMainViewController {
         raceCars.add(myRaceCar_1);
         raceCars.add(myRaceCar_2);
 
-        BindCarsGrid();
+        for (RaceCar car : raceCars) {
+            lvCars.getItems().add(car);
+        }
 
-        tabPaneCar.setVisible(false);
         btnAdd.setVisible(true);
         btnCancel.setVisible(false);
         btnSave.setVisible(false);
@@ -175,10 +205,27 @@ public class RCASMainViewController {
                 util.getMMMStabilityValue(raceCar, 20.0, -5.0, -4.0)));
     }
 
-    private void BindCarsGrid() {
-        for (RaceCar car : raceCars) {
-            carsTableView.getItems().add(car);
-        }
+    private void bindTabCar(RaceCar raceCar) {
+        txtName.setText(raceCar.getName());
+        txtTrack.setText(raceCar.getFrontTrack() + " " + raceCar.getRearTrack());
+        txtWheelbase.setText(raceCar.getWheelbase().toString());
+        txtCogHeight.setText(raceCar.getCogHeight().toString());
+        txtFrontRollDist.setText(raceCar.getFrontRollDist().toString());
+        txtCornerWeightFL.setText(raceCar.getCornerWeightFL().toString());
+        txtCornerWeightFR.setText(raceCar.getCornerWeightFR().toString());
+        txtCornerWeightRL.setText(raceCar.getCornerWeightRL().toString());
+        txtCornerWeightRR.setText(raceCar.getCornerWeightRR().toString());
+
+        // tire configuration
+        MagicFormulaTireModel frontTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
+        txtFrontAxleTireModel.setText(frontTireModel.getName());
+
+        MagicFormulaTireModel rearTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
+        txtRearAxleTireModel.setText(rearTireModel.getName());
+
+        // slip angle
+
+        // axle load
     }
     // endregion
 
@@ -192,6 +239,7 @@ public class RCASMainViewController {
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
+        clearDetailView();
     }
 
     @FXML
@@ -254,7 +302,6 @@ public class RCASMainViewController {
                 cornerWeightRR = Double.valueOf(-1);
             }
 
-            // tire models
             RaceCar raceCar = new RaceCar(cornerWeightFL, cornerWeightFR, cornerWeightRL, cornerWeightRR);
             raceCar.setName(txtName.getText());
 
@@ -273,7 +320,9 @@ public class RCASMainViewController {
             btnCancel.setVisible(false);
             btnAdd.setVisible(true);
 
-            BindCarsGrid();
+            for (RaceCar car : raceCars) {
+                lvCars.getItems().add(car);
+            }
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Saving unsuccessful");
             alert.showAndWait();
@@ -282,26 +331,41 @@ public class RCASMainViewController {
 
     @FXML
     private void btnCancelClicked() {
-        txtName.setText("");
-        txtWheelbase.setText("");
-        txtCogHeight.setText("");
-        txtTrack.setText("");
-        txtFrontRollDist.setText("");
-        txtCornerWeightFL.setText("");
-        txtCornerWeightFR.setText("");
-        txtCornerWeightRL.setText("");
-        txtCornerWeightRR.setText("");
+        clearDetailView();
+    }
+
+    @FXML
+    private void lvCars_OnMouseClicked(Event event) {
+        Object carObj = lvCars.getSelectionModel().getSelectedItem();
+        RaceCar car = (RaceCar) carObj;
+        bindTabCar(car);
+        tabs.getTabs().add(tabCar);
+        tabCar.setDisable(false);
+        tabCar.getContent().setVisible(true);
+    }
+
+    private void clearDetailView() {
+        RaceCar raceCar = new RaceCar(0.0, 0.0, 0.0, 0.0);
+        txtName.setText(raceCar.getName());
+        txtWheelbase.setText(raceCar.getWheelbase().toString());
+        txtCogHeight.setText(raceCar.getCogHeight().toString());
+        txtTrack.setText(raceCar.getFrontTrack().toString());
+        txtFrontRollDist.setText(raceCar.getFrontRollDist().toString());
+        txtCornerWeightFL.setText(raceCar.getCornerWeightFL().toString());
+        txtCornerWeightFR.setText(raceCar.getCornerWeightFR().toString());
+        txtCornerWeightRL.setText(raceCar.getCornerWeightRL().toString());
+        txtCornerWeightRR.setText(raceCar.getCornerWeightRR().toString());
         txtFrontAxleTireModel.setText("");
         txtFrontAxleSlipAngel.setText("");
         txtFrontAxleLoad.setText("");
         txtRearAxleTireModel.setText("");
         txtRearAxleSlipAngel.setText("");
         txtRearAxleLoad.setText("");
-    }
-
-    @FXML
-    private void carsTableViewMouseClicked(Event event) {
-        Object carObj = carsTableView.getSelectionModel().getSelectedItem();
+        txtSlipAngleCoefficientB.setText("15.2");
+        txtSlipAngleCoefficientC.setText("1.3");
+        txtSlipAngleCoefficientE.setText("-1.6");
+        txtSlipAngleCoefficientKA.setText("2.0");
+        txtSlipAngleCoefficientKB.setText("0.000055");
     }
     // endregion
 }
