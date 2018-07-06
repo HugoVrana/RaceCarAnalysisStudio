@@ -113,9 +113,5 @@
     <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="3">
         <Button fx:id="btnAdd" GridPane.rowIndex="0" GridPane.columnIndex="0" onMouseClicked="#btnAddClicked"
                 text="%btnAdd.text"/>
-        <Button fx:id="btnSave" GridPane.rowIndex="0" GridPane.columnIndex="1" onMouseClicked="#btnSaveClicked"
-                text="%btnSave.text"/>
-        <Button fx:id="btnCancel" GridPane.rowIndex="0" GridPane.columnIndex="2" onMouseClicked="#btnCancelClicked"
-                text="%btnCancel.text"/>
     </GridPane>
 </GridPane>
