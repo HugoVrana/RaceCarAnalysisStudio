@@ -1,15 +1,13 @@
 package rcas.controller;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import rcas.model.MagicFormulaTireModel;
 import rcas.model.RaceCar;
 import rcas.model.TireModel;
@@ -18,7 +16,6 @@ import rcas.util.CorneringAnalyserUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-
 
 public class RCASMainViewController {
 
@@ -33,6 +30,9 @@ public class RCASMainViewController {
     private Button btnAdd;
 
     @FXML
+    private Button btnEdit;
+
+    @FXML
     private Button btnCancel;
 
     @FXML
@@ -45,64 +45,154 @@ public class RCASMainViewController {
     private LineChart<Number, Number> mainChart;
 
     @FXML
+    private Label lblName;
+
+    @FXML
     private TextField txtName;
+
+    @FXML
+    private Label lblTrack;
 
     @FXML
     private TextField txtTrack;
 
     @FXML
+    private Label lblWheelbase;
+
+    @FXML
     private TextField txtWheelbase;
+
+    @FXML
+    private Label lblCogHeight;
 
     @FXML
     private TextField txtCogHeight;
 
     @FXML
+    private Label lblFrontRollDist;
+
+    @FXML
     private TextField txtFrontRollDist;
+
+    @FXML
+    private Label lblCornerWeightFL;
 
     @FXML
     private TextField txtCornerWeightFL;
 
     @FXML
+    private Label lblCornerWeightFR;
+
+    @FXML
     private TextField txtCornerWeightFR;
+
+    @FXML
+    private Label lblCornerWeightRL;
 
     @FXML
     private TextField txtCornerWeightRL;
 
     @FXML
+    private Label lblCornerWeightRR;
+
+    @FXML
     private TextField txtCornerWeightRR;
+
+    @FXML
+    private Label lblFrontAxleTireModel;
 
     @FXML
     private TextField txtFrontAxleTireModel;
 
     @FXML
+    private Label lblFrontAxleSlipAngel;
+
+    @FXML
     private TextField txtFrontAxleSlipAngel;
+
+    @FXML
+    private Label lblFrontAxleLoad;
 
     @FXML
     private TextField txtFrontAxleLoad;
 
     @FXML
+    private Label lblFrontAxleSlipAngelC;
+
+    @FXML
+    private TextField txtFrontAxleSlipAngelC;
+
+    @FXML
+    private Label lblFrontAxleSlipAngelB;
+
+    @FXML
+    private TextField txtFrontAxleSlipAngelB;
+
+    @FXML
+    private Label lblFrontAxleSlipAngelE;
+
+    @FXML
+    private TextField txtFrontAxleSlipAngelE;
+
+    @FXML
+    private Label lblFrontAxleSlipAngelKA;
+
+    @FXML
+    private TextField txtFrontAxleLoadKA;
+
+    @FXML
+    private Label lblFrontAxleSlipAngelKB;
+
+    @FXML
+    private TextField txtFrontAxleLoadKB;
+
+    @FXML
+    private Label lblRearAxleTireModel;
+
+    @FXML
     private TextField txtRearAxleTireModel;
+
+    @FXML
+    private Label lblRearAxleSlipAngel;
 
     @FXML
     private TextField txtRearAxleSlipAngel;
 
     @FXML
+    private Label lblRearAxleLoad;
+
+    @FXML
     private TextField txtRearAxleLoad;
 
     @FXML
-    private TextField txtSlipAngleCoefficientC;
+    private Label lblRearAxleSlipAngelC;
 
     @FXML
-    private TextField txtSlipAngleCoefficientB;
+    private TextField txtRearAxleSlipAngelC;
 
     @FXML
-    private TextField txtSlipAngleCoefficientE;
+    private Label lblRearAxleSlipAngelB;
 
     @FXML
-    private TextField txtSlipAngleCoefficientKA;
+    private TextField txtRearAxleSlipAngelB;
 
     @FXML
-    private TextField txtSlipAngleCoefficientKB;
+    private Label lblRearAxleSlipAngelE;
+
+    @FXML
+    private TextField txtRearAxleSlipAngelE;
+
+    @FXML
+    private Label lblRearAxleSlipAngelKA;
+
+    @FXML
+    private TextField txtRearAxleLoadKA;
+
+    @FXML
+    private Label lblRearAxleSlipAngelKB;
+
+    @FXML
+    private TextField txtRearAxleLoadKB;
 
     @FXML
     private ResourceBundle resources;
@@ -120,24 +210,11 @@ public class RCASMainViewController {
     private ListView<RaceCar> lvCars;
 
     private ArrayList<RaceCar> raceCars = new ArrayList<>();
-
     // endregion
 
     // region Methods
-
     @FXML
     public void initialize() {
-
-        ColumnConstraints collumnConstraints = new ColumnConstraints();
-        collumnConstraints.setPercentWidth(100);
-        mainPane.getColumnConstraints().add(collumnConstraints);
-
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(100);
-        mainPane.getRowConstraints().add(rowConstraints);
-
-        mainPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-
         // create race cars and calculate a chart.
         RaceCar myRaceCar_1 = new RaceCar(1, 420, 2, 3);
         TireModel myTireModel_1 = new MagicFormulaTireModel();
@@ -182,9 +259,8 @@ public class RCASMainViewController {
             lvCars.getItems().add(car);
         }
 
-        btnAdd.setVisible(true);
-        btnCancel.setVisible(false);
-        btnSave.setVisible(false);
+        setReadOnly(true);
+        mainPane.setVisible(true);
     }
 
     private void setSeriesStyle(ObservableList<XYChart.Series<Number, Number>> dataList_1, String styleSelector, String lineStyle) {
@@ -216,16 +292,32 @@ public class RCASMainViewController {
         txtCornerWeightRL.setText(raceCar.getCornerWeightRL().toString());
         txtCornerWeightRR.setText(raceCar.getCornerWeightRR().toString());
 
-        // tire configuration
+        // front tire configuration
         MagicFormulaTireModel frontTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
         txtFrontAxleTireModel.setText(frontTireModel.getName());
+        txtFrontAxleLoad.setText("0");
+        txtFrontAxleSlipAngel.setText("0");
+        txtFrontAxleSlipAngelB.setText(Double.toString(frontTireModel.getSlipAngleCoefficientB()));
+        txtFrontAxleSlipAngelC.setText(Double.toString(frontTireModel.getSlipAngleCoefficientC()));
+        txtFrontAxleSlipAngelE.setText(Double.toString(frontTireModel.getSlipAngleCoefficientE()));
+        txtFrontAxleLoadKA.setText(Double.toString(frontTireModel.getLoadCoefficientKA()));
+        txtFrontAxleLoadKB.setText(Double.toString(frontTireModel.getLoadCoefficientKB()));
 
+        // rear tire configuration
         MagicFormulaTireModel rearTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
         txtRearAxleTireModel.setText(rearTireModel.getName());
+        txtRearAxleLoad.setText("0");
+        txtRearAxleSlipAngel.setText("0");
+        txtRearAxleSlipAngelB.setText(Double.toString(rearTireModel.getSlipAngleCoefficientB()));
+        txtRearAxleSlipAngelC.setText(Double.toString(rearTireModel.getSlipAngleCoefficientC()));
+        txtRearAxleSlipAngelE.setText(Double.toString(rearTireModel.getSlipAngleCoefficientE()));
+        txtRearAxleLoadKA.setText(Double.toString(rearTireModel.getLoadCoefficientKA()));
+        txtRearAxleLoadKB.setText(Double.toString(rearTireModel.getLoadCoefficientKB()));
 
-        // slip angle
-
-        // axle load
+        CorneringAnalyserUtil corneringAnalyserUtil = new CorneringAnalyserUtil();
+        ObservableList<XYChart.Series<Number, Number>> dataList = corneringAnalyserUtil.generateMMMChartData(raceCar);
+        mainChart.getData().addAll(dataList);
+        this.setSeriesStyle(dataList, ".chart-series-line", "-fx-stroke: red; -fx-stroke-width: 1px;");
     }
     // endregion
 
@@ -235,11 +327,13 @@ public class RCASMainViewController {
         tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
         tabCar.getContent().setVisible(true);
+        tabPaneCar.setVisible(true);
         tabs.getSelectionModel().select(tabCar);
         btnAdd.setVisible(false);
         btnSave.setVisible(true);
         btnCancel.setVisible(true);
         clearDetailView();
+        setReadOnly(false);
     }
 
     @FXML
@@ -305,16 +399,21 @@ public class RCASMainViewController {
             RaceCar raceCar = new RaceCar(cornerWeightFL, cornerWeightFR, cornerWeightRL, cornerWeightRR);
             raceCar.setName(txtName.getText());
 
-            // front roll track
             raceCar.setFrontTrack(track);
-            // rear roll track
             raceCar.setRearTrack(track);
 
             raceCar.setWheelbase(wheelbase);
             raceCar.setCogHeight(cogHeight);
             raceCar.setFrontRollDist(frontRollDist);
 
+            MagicFormulaTireModel frontAxleTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
+            raceCar.setFrontAxleTireModel(frontAxleTireModel);
+
+            MagicFormulaTireModel rearAxleTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
+            raceCar.setRearAxleTireModel(rearAxleTireModel);
+
             raceCars.add(raceCar);
+            setReadOnly(true);
             detailsPane.setVisible(false);
             btnSave.setVisible(false);
             btnCancel.setVisible(false);
@@ -326,22 +425,49 @@ public class RCASMainViewController {
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Saving unsuccessful");
             alert.showAndWait();
+        } finally {
+            tabs.getSelectionModel().select(tabAllCars);
+
         }
     }
 
     @FXML
     private void btnCancelClicked() {
+        lvCars.setSelectionModel(null);
         clearDetailView();
+        tabs.getSelectionModel().select(tabAllCars);
+        bindTabCar(new RaceCar(0, 0, 0, 0));
+        setReadOnly(true);
+        btnCancel.setVisible(false);
+        btnSave.setVisible(false);
+        btnAdd.setVisible(true);
+    }
+
+    @FXML
+    private void btnEditClicked() {
+        setReadOnly(false);
+        btnAdd.setVisible(false);
+        btnCancel.setVisible(true);
+        btnEdit.setVisible(false);
     }
 
     @FXML
     private void lvCars_OnMouseClicked(Event event) {
-        Object carObj = lvCars.getSelectionModel().getSelectedItem();
-        RaceCar car = (RaceCar) carObj;
+        RaceCar car = lvCars.getSelectionModel().getSelectedItem();
         bindTabCar(car);
         tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
         tabCar.getContent().setVisible(true);
+        detailsPane.setVisible(true);
+        setReadOnly(true);
+    }
+
+    @FXML
+    private void tabCarClosed() {
+        tabs.getSelectionModel().select(tabAllCars);
+        tabs.getTabs().remove(tabCar);
+        SimpleBooleanProperty b = new SimpleBooleanProperty();
+        b.setValue(false);
     }
 
     private void clearDetailView() {
@@ -355,17 +481,67 @@ public class RCASMainViewController {
         txtCornerWeightFR.setText(raceCar.getCornerWeightFR().toString());
         txtCornerWeightRL.setText(raceCar.getCornerWeightRL().toString());
         txtCornerWeightRR.setText(raceCar.getCornerWeightRR().toString());
-        txtFrontAxleTireModel.setText("");
+
+        MagicFormulaTireModel tireModel = new MagicFormulaTireModel();
+
+        txtFrontAxleTireModel.setText(tireModel.getName());
+
         txtFrontAxleSlipAngel.setText("");
         txtFrontAxleLoad.setText("");
-        txtRearAxleTireModel.setText("");
+        txtFrontAxleSlipAngelB.setText(Double.toString(tireModel.getSlipAngleCoefficientB()));
+        txtFrontAxleSlipAngelC.setText(Double.toString(tireModel.getSlipAngleCoefficientC()));
+        txtFrontAxleSlipAngelE.setText(Double.toString(tireModel.getSlipAngleCoefficientE()));
+        txtFrontAxleLoadKA.setText(Double.toString(tireModel.getLoadCoefficientKA()));
+        txtFrontAxleLoadKB.setText(Double.toString(tireModel.getLoadCoefficientKB()));
+
+        txtRearAxleTireModel.setText(tireModel.getName());
         txtRearAxleSlipAngel.setText("");
         txtRearAxleLoad.setText("");
-        txtSlipAngleCoefficientB.setText("15.2");
-        txtSlipAngleCoefficientC.setText("1.3");
-        txtSlipAngleCoefficientE.setText("-1.6");
-        txtSlipAngleCoefficientKA.setText("2.0");
-        txtSlipAngleCoefficientKB.setText("0.000055");
+        txtRearAxleSlipAngelB.setText(Double.toString(tireModel.getSlipAngleCoefficientB()));
+        txtRearAxleSlipAngelC.setText(Double.toString(tireModel.getSlipAngleCoefficientC()));
+        txtRearAxleSlipAngelE.setText(Double.toString(tireModel.getSlipAngleCoefficientE()));
+        txtRearAxleLoadKA.setText(Double.toString(tireModel.getLoadCoefficientKA()));
+        txtRearAxleLoadKB.setText(Double.toString(tireModel.getLoadCoefficientKB()));
+    }
+
+    private void setReadOnly(Boolean readOnly) {
+        txtName.setEditable(!readOnly);
+        txtWheelbase.setEditable(!readOnly);
+        txtCogHeight.setEditable(!readOnly);
+        txtTrack.setEditable(!readOnly);
+        txtFrontRollDist.setEditable(!readOnly);
+        txtCornerWeightFL.setEditable(!readOnly);
+        txtCornerWeightFR.setEditable(!readOnly);
+        txtCornerWeightRL.setEditable(!readOnly);
+        txtCornerWeightRR.setEditable(!readOnly);
+
+        txtFrontAxleTireModel.setEditable(!readOnly);
+
+        txtFrontAxleSlipAngel.setEditable(!readOnly);
+        txtFrontAxleLoad.setEditable(!readOnly);
+        txtFrontAxleSlipAngelB.setEditable(!readOnly);
+        txtFrontAxleSlipAngelC.setEditable(!readOnly);
+        txtFrontAxleSlipAngelE.setEditable(!readOnly);
+        txtFrontAxleLoadKA.setEditable(!readOnly);
+        txtFrontAxleLoadKB.setEditable(!readOnly);
+
+        txtRearAxleTireModel.setEditable(!readOnly);
+        txtRearAxleSlipAngel.setEditable(!readOnly);
+        txtRearAxleLoad.setEditable(!readOnly);
+        txtRearAxleSlipAngelB.setEditable(!readOnly);
+        txtRearAxleSlipAngelC.setEditable(!readOnly);
+        txtRearAxleSlipAngelE.setEditable(!readOnly);
+        txtRearAxleLoadKA.setEditable(!readOnly);
+        txtRearAxleLoadKB.setEditable(!readOnly);
+
+        btnAdd.setVisible(readOnly);
+        btnAdd.setManaged(readOnly);
+        btnCancel.setVisible(!readOnly);
+        btnCancel.setManaged(!readOnly);
+        btnSave.setVisible(!readOnly);
+        btnSave.setManaged(!readOnly);
+        btnEdit.setVisible(readOnly);
+        btnEdit.setManaged(readOnly);
     }
     // endregion
 }

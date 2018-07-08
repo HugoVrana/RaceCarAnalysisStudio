@@ -1,4 +1,19 @@
 .chart-title {
-    -fx-text-fill: blue;
+    -fx-text-fill: #5b6daf;
     -fx-font-size: 1.6em;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #5b6daf;
+    -fx-text-fill: #000;
+}
+
+.text-field {
+    -fx-padding: 10px;
+}
+
+.text-field:readonly {
+    -fx-border-style: none;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
 }
