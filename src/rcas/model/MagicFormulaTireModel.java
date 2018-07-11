@@ -46,6 +46,70 @@ public class MagicFormulaTireModel implements TireModel {
     // coefficient KB for the load function.
     private SimpleDoubleProperty loadCoefficientKB;
 
+    public SimpleStringProperty nameProperty() {
+        return name;
+    }
+
+    public double getSlipAngleCoefficientC() {
+        return slipAngleCoefficientC.get();
+    }
+
+    public void setSlipAngleCoefficientC(double slipAngleCoefficientC) {
+        this.slipAngleCoefficientC.set(slipAngleCoefficientC);
+    }
+
+    public SimpleDoubleProperty slipAngleCoefficientCProperty() {
+        return slipAngleCoefficientC;
+    }
+
+    public double getSlipAngleCoefficientB() {
+        return slipAngleCoefficientB.get();
+    }
+
+    public void setSlipAngleCoefficientB(double slipAngleCoefficientB) {
+        this.slipAngleCoefficientB.set(slipAngleCoefficientB);
+    }
+
+    public SimpleDoubleProperty slipAngleCoefficientBProperty() {
+        return slipAngleCoefficientB;
+    }
+
+    public double getSlipAngleCoefficientE() {
+        return slipAngleCoefficientE.get();
+    }
+
+    public void setSlipAngleCoefficientE(double slipAngleCoefficientE) {
+        this.slipAngleCoefficientE.set(slipAngleCoefficientE);
+    }
+
+    public SimpleDoubleProperty slipAngleCoefficientEProperty() {
+        return slipAngleCoefficientE;
+    }
+
+    public double getLoadCoefficientKA() {
+        return loadCoefficientKA.get();
+    }
+
+    public void setLoadCoefficientKA(double loadCoefficientKA) {
+        this.loadCoefficientKA.set(loadCoefficientKA);
+    }
+
+    public SimpleDoubleProperty loadCoefficientKAProperty() {
+        return loadCoefficientKA;
+    }
+
+    public double getLoadCoefficientKB() {
+        return loadCoefficientKB.get();
+    }
+
+    public void setLoadCoefficientKB(double loadCoefficientKB) {
+        this.loadCoefficientKB.set(loadCoefficientKB);
+    }
+
+    public SimpleDoubleProperty loadCoefficientKBProperty() {
+        return loadCoefficientKB;
+    }
+
     /**
      * Creates a Race Car Tire Model Object with the given curve coefficients
      * and the default name "Magic Formula Tire Model".<br>
