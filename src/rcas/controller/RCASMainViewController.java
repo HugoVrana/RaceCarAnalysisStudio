@@ -135,13 +135,7 @@ public class RCASMainViewController {
     private TextField txtFrontAxleSlipAngelE;
 
     @FXML
-    private Label lblFrontAxleSlipAngelKA;
-
-    @FXML
     private TextField txtFrontAxleLoadKA;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelKB;
 
     @FXML
     private TextField txtFrontAxleLoadKB;
@@ -183,13 +177,7 @@ public class RCASMainViewController {
     private TextField txtRearAxleSlipAngelE;
 
     @FXML
-    private Label lblRearAxleSlipAngelKA;
-
-    @FXML
     private TextField txtRearAxleLoadKA;
-
-    @FXML
-    private Label lblRearAxleSlipAngelKB;
 
     @FXML
     private TextField txtRearAxleLoadKB;
@@ -210,6 +198,8 @@ public class RCASMainViewController {
     private ListView<RaceCar> lvCars;
 
     private ArrayList<RaceCar> raceCars = new ArrayList<>();
+
+    private Boolean newCarCreated = false;
     // endregion
 
     // region Methods
@@ -261,6 +251,42 @@ public class RCASMainViewController {
 
         setReadOnly(true);
         mainPane.setVisible(true);
+
+        // setting textboxes only nummeric
+        String regexOnlyNumbers = "[-+]?([0-9]*\\.[0-9]+|[0-9]+)";
+        String regexChars = "[a-zA-Z]";
+
+        ArrayList<TextField> nummericTextFields = new ArrayList<TextField>();
+        nummericTextFields.add(txtWheelbase);
+        nummericTextFields.add(txtTrack);
+        nummericTextFields.add(txtCogHeight);
+        nummericTextFields.add(txtFrontRollDist);
+        nummericTextFields.add(txtCornerWeightFL);
+        nummericTextFields.add(txtCornerWeightFR);
+        nummericTextFields.add(txtCornerWeightRL);
+        nummericTextFields.add(txtCornerWeightRR);
+        nummericTextFields.add(txtFrontAxleLoad);
+        nummericTextFields.add(txtFrontAxleLoadKA);
+        nummericTextFields.add(txtFrontAxleLoadKB);
+        nummericTextFields.add(txtFrontAxleSlipAngel);
+        nummericTextFields.add(txtFrontAxleSlipAngelB);
+        nummericTextFields.add(txtFrontAxleSlipAngelC);
+        nummericTextFields.add(txtFrontAxleSlipAngelE);
+        nummericTextFields.add(txtRearAxleLoad);
+        nummericTextFields.add(txtRearAxleLoadKA);
+        nummericTextFields.add(txtRearAxleLoadKB);
+        nummericTextFields.add(txtRearAxleSlipAngel);
+        nummericTextFields.add(txtRearAxleSlipAngelB);
+        nummericTextFields.add(txtRearAxleSlipAngelC);
+        nummericTextFields.add(txtRearAxleSlipAngelE);
+
+        for (TextField txt : nummericTextFields) {
+            txt.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches(regexOnlyNumbers)) {
+                    txt.setText(newValue.replaceAll(regexChars, ""));
+                }
+            });
+        }
     }
 
     private void setSeriesStyle(ObservableList<XYChart.Series<Number, Number>> dataList_1, String styleSelector, String lineStyle) {
@@ -334,6 +360,7 @@ public class RCASMainViewController {
         btnCancel.setVisible(true);
         clearDetailView();
         setReadOnly(false);
+        newCarCreated = true;
     }
 
     @FXML
@@ -427,7 +454,7 @@ public class RCASMainViewController {
             alert.showAndWait();
         } finally {
             tabs.getSelectionModel().select(tabAllCars);
-
+            newCarCreated = false;
         }
     }
 
@@ -435,8 +462,10 @@ public class RCASMainViewController {
     private void btnCancelClicked() {
         lvCars.setSelectionModel(null);
         clearDetailView();
-        tabs.getSelectionModel().select(tabAllCars);
-        bindTabCar(new RaceCar(0, 0, 0, 0));
+        if (newCarCreated) {
+            tabs.getSelectionModel().select(tabAllCars);
+            bindTabCar(new RaceCar(0, 0, 0, 0));
+        }
         setReadOnly(true);
         btnCancel.setVisible(false);
         btnSave.setVisible(false);

@@ -87,7 +87,6 @@
                                 <Label fx:id="lblFrontAxleLoadKB" text="%lblFrontAxleLoadKB.text"
                                        GridPane.columnIndex="0" GridPane.rowIndex="7"/>
                                 <TextField fx:id="txtFrontAxleLoadKB" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-
                                 <Label fx:id="lblRearAxleTireModel" text="%lblRearAxleTireModel.text"
                                        GridPane.columnIndex="2" GridPane.rowIndex="0"/>
                                 <TextField fx:id="txtRearAxleTireModel" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
@@ -144,7 +143,7 @@
             </TabPane>
         </Tab>
     </TabPane>
-    <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <Button fx:id="btnAdd" onMouseClicked="#btnAddClicked" text="%btnAdd.text" GridPane.columnIndex="0"
                 GridPane.rowIndex="0"/>
         <Button fx:id="btnSave" onMouseClicked="#btnSaveClicked" text="%btnSave.text" GridPane.columnIndex="1"
