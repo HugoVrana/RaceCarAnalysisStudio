@@ -173,7 +173,7 @@ public class RCASSecondWindowController {
 
             RCASMainViewController mainViewController = new RCASMainViewController();
             detailsPane.setVisible(false);
-            mainViewController.bindCarsGrid(raceCar);
+            //mainViewController.bindCarsGrid(raceCar);
 
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
