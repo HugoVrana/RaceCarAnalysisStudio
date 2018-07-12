@@ -13,8 +13,7 @@
         <Tab fx:id="tabAllCars" closable="false" text="%lblAllCars.text">
             <ListView fx:id="lvCars" onMouseClicked="#lvCars_OnMouseClicked"/>
         </Tab>
-        <Tab fx:id="tabCar" closable="false" text="%tabCar.text" >
-        <!--<Tab fx:id="tabCar" closable="false" text="%tabCar.text" onClosed="#tabCarClosed">-->
+        <Tab fx:id="tabCar" closable="false" text="%tabCar.text">
             <TabPane fx:id="tabPaneCar" GridPane.columnIndex="0" GridPane.rowIndex="2">
                 <Tab fx:id="tabDetails" closable="false" text="%lblDetailCar.text">
                     <GridPane fx:id="detailsPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
@@ -147,10 +146,6 @@
     <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <Button fx:id="btnAdd" onMouseClicked="#btnAddClicked" text="%btnAdd.text" GridPane.columnIndex="0"
                 GridPane.rowIndex="0"/>
-        <!--<Button fx:id="btnSave" onMouseClicked="#btnSaveClicked" text="%btnSave.text" GridPane.columnIndex="1"-->
-                <!--GridPane.rowIndex="0"/>-->
-        <!--<Button fx:id="btnCancel" onMouseClicked="#btnCancelClicked" text="%btnCancel.text" GridPane.columnIndex="2"-->
-                <!--GridPane.rowIndex="0"/>-->
         <Button fx:id="btnEdit" onMouseClicked="#btnEditClicked" text="%btnEdit.text" GridPane.columnIndex="3"
                 GridPane.rowIndex="0"/>
     </GridPane>

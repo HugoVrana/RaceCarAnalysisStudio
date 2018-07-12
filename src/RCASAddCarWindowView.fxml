@@ -1,86 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity"
           minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
           prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
           fx:controller="rcas.controller.RCASSecondWindowController" stylesheets="@RCASStyle.css">
-    <!--<TabPane fx:id="tabs" GridPane.rowIndex="2" GridPane.columnIndex="0">-->
-        <!--<Tab fx:id="tabCar" text="Car" closable="true">-->
-            <!--<TabPane fx:id="tabPaneCar" GridPane.rowIndex="2" GridPane.columnIndex="0">-->
-                <!--<Tab fx:id="tabDetails" text="The details of a car" closable="false">-->
-                    <GridPane fx:id="detailsPane" alignment="CENTER" hgap="15.0"
-                              maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                              minWidth="-Infinity" vgap="15.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
-                        <Label fx:id="lblName" text="%lblName.text" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                        <TextField fx:id="txtName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                        <Label fx:id="lblTrack" text="%lblTrack.text" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                        <TextField fx:id="txtTrack" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                        <Label fx:id="lblWheelbase" text="%lblWheelbase.text" GridPane.rowIndex="0"
-                               GridPane.columnIndex="2"/>
-                        <TextField fx:id="txtWheelbase" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-                        <Label fx:id="lblCogHeight" GridPane.rowIndex="1" GridPane.columnIndex="2"
-                               text="%lblCogHeight.text"/>
-                        <TextField fx:id="txtCogHeight" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                        <Label fx:id="lblFrontRollDist" GridPane.rowIndex="2" GridPane.columnIndex="0"
-                               text="%lblFrontRollDist.text"/>
-                        <TextField fx:id="txtFrontRollDist" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                        <TitledPane fx:id="tiltedPaneCornerWeight" GridPane.columnIndex="0" GridPane.columnSpan="4"
-                                    GridPane.rowIndex="3" expanded="false" text="%lblAdvance.text">
-                            <GridPane fx:id="cornerWeightPane" alignment="CENTER" hgap="15.0" maxHeight="-Infinity"
-                                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="15.0">
-                                <Label fx:id="lblCornerWeightFL" GridPane.rowIndex="0" GridPane.columnIndex="0"
-                                       text="%lblCornerWeightFL.text"/>
-                                <TextField fx:id="txtCornerWeightFL" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                                <Label fx:id="lblCornerWeightFR" GridPane.rowIndex="0" GridPane.columnIndex="2"
-                                       text="%lblCornerWeightFR.text"/>
-                                <TextField fx:id="txtCornerWeightFR" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-                                <Label fx:id="lblCornerWeightRL" GridPane.rowIndex="1" GridPane.columnIndex="0"
-                                       text="%lblCornerWeightRL.text"/>
-                                <TextField fx:id="txtCornerWeightRL" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                                <Label fx:id="lblCornerWeightRR" GridPane.rowIndex="1" GridPane.columnIndex="2"
-                                       text="%lblCornerWeightRR.text"/>
-                                <TextField fx:id="txtCornerWeightRR" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                            </GridPane>
-                        </TitledPane>
-                        <TitledPane fx:id="titledPaneTireModels" GridPane.columnIndex="0" GridPane.columnSpan="4"
-                                    GridPane.rowIndex="4" expanded="false" text="%lblTires.text">
-                            <GridPane fx:id="tireModelsGrid" alignment="CENTER" hgap="15.0" maxHeight="-Infinity"
-                                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                                <Label fx:id="lblFrontAxleTireModel" text="%lblFrontAxleTireModel.text"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="0"/>
-                                <TextField fx:id="txtFrontAxleTireModel" GridPane.rowIndex="0"
-                                           GridPane.columnIndex="1"/>
-                                <Label fx:id="lblFrontAxleSlipAngel" text="%lblFrontSlipAngel.text"
-                                       GridPane.RowIndex="1"
-                                       GridPane.columnIndex="0"/>
-                                <TextField fx:id="txtFrontAxleSlipAngel" GridPane.rowIndex="1"
-                                           GridPane.columnIndex="1"/>
-                                <Label fx:id="lblFrontAxleLoad" text="%lblFrontAxleLoad.text" GridPane.rowIndex="2"
-                                       GridPane.columnIndex="0"/>
-                                <TextField fx:id="txtFrontAxleLoad" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                                <Label fx:id="lblRearAxleTireModel" text="%lblRearAxleTireModel.text"
-                                       GridPane.rowIndex="0"
-                                       GridPane.columnIndex="2"/>
-                                <TextField fx:id="txtRearAxleTireModel" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-                                <Label fx:id="lblRearAxleSlipAngel" text="%lblRearSlipAngle.text" GridPane.rowIndex="1"
-                                       GridPane.columnIndex="2"/>
-                                <TextField fx:id="txtRearAxleSlipAngel" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                                <Label fx:id="lblRearAxleLoad" text="%lblRearAxleLoad.text" GridPane.rowIndex="2"
-                                       GridPane.columnIndex="2"/>
-                                <TextField fx:id="txtRearAxleLoad" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-                            </GridPane>
-                        </TitledPane>
-                    </GridPane>
-                <!--</Tab>-->
-            <!--</TabPane>-->
-        <!--</Tab>-->
-    <!--</TabPane>-->
+    <GridPane fx:id="detailsPane" alignment="CENTER" hgap="15.0"
+              maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" vgap="15.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <Label fx:id="lblName" text="%lblName.text" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label fx:id="lblTrack" text="%lblTrack.text" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtTrack" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label fx:id="lblWheelbase" text="%lblWheelbase.text" GridPane.rowIndex="0"
+               GridPane.columnIndex="2"/>
+        <TextField fx:id="txtWheelbase" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+        <Label fx:id="lblCogHeight" GridPane.rowIndex="1" GridPane.columnIndex="2"
+               text="%lblCogHeight.text"/>
+        <TextField fx:id="txtCogHeight" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <Label fx:id="lblFrontRollDist" GridPane.rowIndex="2" GridPane.columnIndex="0"
+               text="%lblFrontRollDist.text"/>
+        <TextField fx:id="txtFrontRollDist" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <TitledPane fx:id="tiltedPaneCornerWeight" GridPane.columnIndex="0" GridPane.columnSpan="4"
+                    GridPane.rowIndex="3" expanded="false" text="%lblAdvance.text">
+            <GridPane fx:id="cornerWeightPane" alignment="CENTER" hgap="15.0" maxHeight="-Infinity"
+                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="15.0">
+                <Label fx:id="lblCornerWeightFL" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                       text="%lblCornerWeightFL.text"/>
+                <TextField fx:id="txtCornerWeightFL" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label fx:id="lblCornerWeightFR" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                       text="%lblCornerWeightFR.text"/>
+                <TextField fx:id="txtCornerWeightFR" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <Label fx:id="lblCornerWeightRL" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                       text="%lblCornerWeightRL.text"/>
+                <TextField fx:id="txtCornerWeightRL" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label fx:id="lblCornerWeightRR" GridPane.rowIndex="1" GridPane.columnIndex="2"
+                       text="%lblCornerWeightRR.text"/>
+                <TextField fx:id="txtCornerWeightRR" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+            </GridPane>
+        </TitledPane>
+        <TitledPane fx:id="titledPaneTireModels" GridPane.columnIndex="0" GridPane.columnSpan="4"
+                    GridPane.rowIndex="4" expanded="false" text="%lblTires.text">
+            <GridPane fx:id="tireModelsGrid" alignment="CENTER" hgap="15.0" maxHeight="-Infinity"
+                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                <Label fx:id="lblFrontAxleTireModel" text="%lblFrontAxleTireModel.text"
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="0"/>
+                <TextField fx:id="txtFrontAxleTireModel" GridPane.rowIndex="0"
+                           GridPane.columnIndex="1"/>
+                <Label fx:id="lblFrontAxleSlipAngel" text="%lblFrontSlipAngel.text"
+                       GridPane.RowIndex="1"
+                       GridPane.columnIndex="0"/>
+                <TextField fx:id="txtFrontAxleSlipAngel" GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
+                <Label fx:id="lblFrontAxleLoad" text="%lblFrontAxleLoad.text" GridPane.rowIndex="2"
+                       GridPane.columnIndex="0"/>
+                <TextField fx:id="txtFrontAxleLoad" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label fx:id="lblRearAxleTireModel" text="%lblRearAxleTireModel.text"
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="2"/>
+                <TextField fx:id="txtRearAxleTireModel" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <Label fx:id="lblRearAxleSlipAngel" text="%lblRearSlipAngle.text" GridPane.rowIndex="1"
+                       GridPane.columnIndex="2"/>
+                <TextField fx:id="txtRearAxleSlipAngel" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                <Label fx:id="lblRearAxleLoad" text="%lblRearAxleLoad.text" GridPane.rowIndex="2"
+                       GridPane.columnIndex="2"/>
+                <TextField fx:id="txtRearAxleLoad" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+            </GridPane>
+        </TitledPane>
+    </GridPane>
     <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="3">
         <Button fx:id="btnSave" GridPane.rowIndex="0" GridPane.columnIndex="0" onMouseClicked="#btnSaveClicked"
                 text="%btnSave.text"/>
