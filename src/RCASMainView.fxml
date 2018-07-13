@@ -177,10 +177,10 @@
     <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <Button fx:id="btnAdd" onMouseClicked="#btnAddClicked" text="%btnAdd.text" GridPane.columnIndex="0"
                 GridPane.rowIndex="0"/>
-        <Button fx:id="btnSave" onMouseClicked="#btnSaveClicked" text="%btnSave.text" GridPane.columnIndex="1"
-                GridPane.rowIndex="0"/>
-        <Button fx:id="btnCancel" onMouseClicked="#btnCancelClicked" text="%btnCancel.text" GridPane.columnIndex="2"
-                GridPane.rowIndex="0"/>
+        <!--<Button fx:id="btnSave" onMouseClicked="#btnSaveClicked" text="%btnSave.text" GridPane.columnIndex="1"-->
+        <!--GridPane.rowIndex="0"/>-->
+        <!--<Button fx:id="btnCancel" onMouseClicked="#btnCancelClicked" text="%btnCancel.text" GridPane.columnIndex="2"-->
+        <!--GridPane.rowIndex="0"/>-->
         <Button fx:id="btnEdit" onMouseClicked="#btnEditClicked" text="%btnEdit.text" GridPane.columnIndex="3"
                 GridPane.rowIndex="0"/>
     </GridPane>

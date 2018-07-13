@@ -4,10 +4,16 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import rcas.model.MagicFormulaTireModel;
 import rcas.model.RaceCar;
 import rcas.model.TireModel;
@@ -25,11 +31,11 @@ public class RCASMainViewController {
     @FXML
     private GridPane detailsPane;
 
-    @FXML
-    private Button btnCancel;
+//    @FXML
+//    private Button btnCancel;
 
-    @FXML
-    private Button btnSave;
+//    @FXML
+//    private Button btnSave;
 
     @FXML
     private Button btnAdd;
@@ -331,110 +337,39 @@ public class RCASMainViewController {
     // region Event-Handlers
     @FXML
     public void btnAddClicked() {
-        tabs.getTabs().add(tabCar);
-        tabCar.setDisable(false);
-        tabCar.getContent().setVisible(true);
-        tabPaneCar.setVisible(true);
-        tabs.getSelectionModel().select(tabCar);
-        btnAdd.setVisible(false);
-        btnSave.setVisible(true);
-        btnCancel.setVisible(true);
-        clearDetailView();
-        setReadOnly(false);
+        try {
+            FXMLLoader e = new FXMLLoader(RCASMainViewController.class.getResource("../../RCASAddCarWindowView.fxml"));
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("RCASResources");
+            e.setResources(resourceBundle);
+            Pane mainPane = (Pane) e.load();
+            Scene mainScene = new Scene(mainPane, mainPane.getPrefWidth(), mainPane.getPrefHeight());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Add car");
+            stage.setScene(mainScene);
+            stage.show();
+        } catch (Exception var6) {
+            var6.printStackTrace();
+        }
     }
 
-    @FXML
-    private void btnSaveClicked() {
+
+    public void saveCar(RaceCar raceCar) {
         try {
-            Double track;
-            try {
-                track = Double.parseDouble(txtTrack.getText());
-            } catch (Exception ex) {
-                track = Double.valueOf(-1);
-            }
-
-            Double wheelbase;
-            try {
-                wheelbase = Double.parseDouble(txtWheelbase.getText());
-            } catch (Exception ex) {
-                wheelbase = Double.valueOf(-1);
-            }
-
-            Double cogHeight;
-            try {
-                cogHeight = Double.parseDouble(txtCogHeight.getText());
-            } catch (Exception ex) {
-                cogHeight = Double.valueOf(-1);
-            }
-
-            Double frontRollDist;
-            try {
-                frontRollDist = Double.parseDouble(txtFrontRollDist.getText());
-            } catch (Exception ex) {
-                frontRollDist = Double.valueOf(-1);
-            }
-
-            // Advanced
-            Double cornerWeightFL;
-            try {
-                cornerWeightFL = Double.parseDouble(txtCornerWeightFL.getText());
-            } catch (Exception ex) {
-                cornerWeightFL = Double.valueOf(-1);
-            }
-
-            Double cornerWeightFR;
-            try {
-                cornerWeightFR = Double.parseDouble(txtCornerWeightFR.getText());
-            } catch (Exception ex) {
-                cornerWeightFR = Double.valueOf(-1);
-            }
-
-            Double cornerWeightRL;
-            try {
-                cornerWeightRL = Double.parseDouble(txtCornerWeightRL.getText());
-            } catch (Exception ex) {
-                cornerWeightRL = Double.valueOf(-1);
-            }
-
-            Double cornerWeightRR;
-            try {
-                cornerWeightRR = Double.parseDouble(txtCornerWeightRR.getText());
-            } catch (Exception ex) {
-                cornerWeightRR = Double.valueOf(-1);
-            }
-
-            RaceCar raceCar = new RaceCar(cornerWeightFL, cornerWeightFR, cornerWeightRL, cornerWeightRR);
-            raceCar.setName(txtName.getText());
-
-            raceCar.setFrontTrack(track);
-            raceCar.setRearTrack(track);
-
-            raceCar.setWheelbase(wheelbase);
-            raceCar.setCogHeight(cogHeight);
-            raceCar.setFrontRollDist(frontRollDist);
-
-            MagicFormulaTireModel frontAxleTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
-            raceCar.setFrontAxleTireModel(frontAxleTireModel);
-
-            MagicFormulaTireModel rearAxleTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
-            raceCar.setRearAxleTireModel(rearAxleTireModel);
-
             raceCars.add(raceCar);
             setReadOnly(true);
             detailsPane.setVisible(false);
-            btnSave.setVisible(false);
-            btnCancel.setVisible(false);
             btnAdd.setVisible(true);
 
-            Alert confirmSave = new Alert(Alert.AlertType.CONFIRMATION, "Save succesfull");
+            Alert confirmSave = new Alert(Alert.AlertType.CONFIRMATION, "Save succesful");
             confirmSave.showAndWait();
 
             for (RaceCar car : raceCars) {
                 lvCars.getItems().add(car);
             }
         } catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Saving unsuccessful");
-            alert.showAndWait();
+            throw ex;
         } finally {
             tabs.getSelectionModel().select(tabAllCars);
 
@@ -448,8 +383,6 @@ public class RCASMainViewController {
         tabs.getSelectionModel().select(tabAllCars);
         bindTabCar(new RaceCar(0, 0, 0, 0));
         setReadOnly(true);
-        btnCancel.setVisible(false);
-        btnSave.setVisible(false);
         btnAdd.setVisible(true);
     }
 
@@ -457,14 +390,37 @@ public class RCASMainViewController {
     private void btnEditClicked() {
         setReadOnly(false);
         btnAdd.setVisible(false);
-        btnCancel.setVisible(true);
+//        btnCancel.setVisible(true);
         btnEdit.setVisible(false);
+
+
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(RCASMainViewController.class.getResource("../../RCASAddCarWindowView.fxml"));
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("RCASResources");
+            fxmlLoader.setResources(resourceBundle);
+            Pane mainPane = fxmlLoader.load();
+
+            RCASSecondWindowController controller =  fxmlLoader.<RCASSecondWindowController>getController();
+            controller.raceCar = lvCars.getSelectionModel().getSelectedItem();
+
+//            Pane mainPane = (Pane) fxmlLoader.load();
+            Scene mainScene = new Scene(mainPane, mainPane.getPrefWidth(), mainPane.getPrefHeight());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Edit car");
+            stage.setScene(mainScene);
+            stage.show();
+        } catch (Exception var6) {
+            var6.printStackTrace();
+        }
     }
 
     @FXML
     private void lvCars_OnMouseClicked(Event event) {
         RaceCar car = lvCars.getSelectionModel().getSelectedItem();
-        bindTabCar(car);
+//        bindTabCar(car);
         tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
         tabCar.getContent().setVisible(true);
@@ -548,10 +504,10 @@ public class RCASMainViewController {
 
         btnAdd.setVisible(readOnly);
         btnAdd.setManaged(readOnly);
-        btnCancel.setVisible(!readOnly);
-        btnCancel.setManaged(!readOnly);
-        btnSave.setVisible(!readOnly);
-        btnSave.setManaged(!readOnly);
+//        btnCancel.setVisible(!readOnly);
+//        btnCancel.setManaged(!readOnly);
+//        btnSave.setVisible(!readOnly);
+//        btnSave.setManaged(!readOnly);
         btnEdit.setVisible(readOnly);
         btnEdit.setManaged(readOnly);
     }

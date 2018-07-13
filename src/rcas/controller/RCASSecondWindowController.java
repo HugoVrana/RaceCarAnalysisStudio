@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import rcas.model.MagicFormulaTireModel;
 import rcas.model.RaceCar;
 
 import java.util.ArrayList;
@@ -91,6 +92,8 @@ public class RCASSecondWindowController {
         int i = 0;
     }
 
+    public RaceCar raceCar;
+
 
     @FXML
     private void btnSaveClicked() {
@@ -152,22 +155,24 @@ public class RCASSecondWindowController {
                 cornerWeightRR = Double.valueOf(-1);
             }
 
-            // tire models
             RaceCar raceCar = new RaceCar(cornerWeightFL, cornerWeightFR, cornerWeightRL, cornerWeightRR);
             raceCar.setName(txtName.getText());
 
-            // front roll track
             raceCar.setFrontTrack(track);
-            // rear roll track
             raceCar.setRearTrack(track);
 
             raceCar.setWheelbase(wheelbase);
             raceCar.setCogHeight(cogHeight);
             raceCar.setFrontRollDist(frontRollDist);
 
-            RCASMainViewController mainViewController = new RCASMainViewController();
-            detailsPane.setVisible(false);
-            mainViewController.setRaceCarIntoList(raceCar);
+            MagicFormulaTireModel frontAxleTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
+            raceCar.setFrontAxleTireModel(frontAxleTireModel);
+
+            MagicFormulaTireModel rearAxleTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
+            raceCar.setRearAxleTireModel(rearAxleTireModel);
+
+//            RCASMainViewController mainViewController = new RCASMainViewController();
+//            mainViewController.saveCar(raceCar);
 
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
