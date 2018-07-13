@@ -36,12 +36,6 @@ public class RCASSecondWindowController {
     private Button btnSave;
 
     @FXML
-    private TabPane tabPaneCar;
-
-    @FXML
-    private TableView carsTableView;
-
-    @FXML
     private LineChart<Number, Number> mainChart;
 
     @FXML
@@ -173,7 +167,7 @@ public class RCASSecondWindowController {
 
             RCASMainViewController mainViewController = new RCASMainViewController();
             detailsPane.setVisible(false);
-            //mainViewController.bindCarsGrid(raceCar);
+            mainViewController.setRaceCarIntoList(raceCar);
 
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
@@ -186,21 +180,23 @@ public class RCASSecondWindowController {
 
     @FXML
     private void btnCancelClicked() {
-        txtName.setText("");
-        txtWheelbase.setText("");
-        txtCogHeight.setText("");
-        txtTrack.setText("");
-        txtFrontRollDist.setText("");
-        txtCornerWeightFL.setText("");
-        txtCornerWeightFR.setText("");
-        txtCornerWeightRL.setText("");
-        txtCornerWeightRR.setText("");
-        txtFrontAxleTireModel.setText("");
-        txtFrontAxleSlipAngel.setText("");
-        txtFrontAxleLoad.setText("");
-        txtRearAxleTireModel.setText("");
-        txtRearAxleSlipAngel.setText("");
-        txtRearAxleLoad.setText("");
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
+//        txtName.setText("");
+//        txtWheelbase.setText("");
+//        txtCogHeight.setText("");
+//        txtTrack.setText("");
+//        txtFrontRollDist.setText("");
+//        txtCornerWeightFL.setText("");
+//        txtCornerWeightFR.setText("");
+//        txtCornerWeightRL.setText("");
+//        txtCornerWeightRR.setText("");
+//        txtFrontAxleTireModel.setText("");
+//        txtFrontAxleSlipAngel.setText("");
+//        txtFrontAxleLoad.setText("");
+//        txtRearAxleTireModel.setText("");
+//        txtRearAxleSlipAngel.setText("");
+//        txtRearAxleLoad.setText("");
     }
 
     @FXML
