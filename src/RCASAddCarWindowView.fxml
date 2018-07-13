@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-          prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+          prefWidth="750.0" xmlns="http://javafx.com/javafx/8"
           fx:controller="rcas.controller.RCASSecondWindowController" stylesheets="@RCASStyle.css">
     <GridPane fx:id="detailsPane" alignment="CENTER" hgap="15.0"
               maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -70,10 +70,10 @@
             </GridPane>
         </TitledPane>
     </GridPane>
-    <GridPane fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <HBox fx:id="CommandBar" GridPane.columnIndex="0" GridPane.rowIndex="3" alignment="BOTTOM_LEFT">
         <Button fx:id="btnSave" GridPane.rowIndex="0" GridPane.columnIndex="0" onMouseClicked="#btnSaveClicked"
                 text="%btnSave.text"/>
         <Button fx:id="btnCancel" GridPane.rowIndex="0" GridPane.columnIndex="1" onMouseClicked="#btnCancelClicked"
                 text="%btnCancel.text"/>
-    </GridPane>
+    </HBox>
 </GridPane>
