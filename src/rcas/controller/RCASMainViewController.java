@@ -25,163 +25,80 @@ import java.util.ResourceBundle;
 
 
 public class RCASMainViewController {
+    private static ArrayList<RaceCar> raceCars = new ArrayList<>();
     @FXML
     private GridPane mainPane;
 
     @FXML
     private GridPane detailsPane;
-
-//    @FXML
-//    private Button btnCancel;
-
-//    @FXML
-//    private Button btnSave;
-
     @FXML
     private Button btnAdd;
-
     @FXML
     private Button btnEdit;
-
-    @FXML
-    private TabPane tabPaneCar;
-
-    @FXML
-    private TableView carsTableView;
-
     @FXML
     private LineChart<Number, Number> mainChart;
-
     @FXML
     private TextField txtName;
-
     @FXML
     private TextField txtTrack;
-
     @FXML
     private TextField txtWheelbase;
-
     @FXML
     private TextField txtCogHeight;
-
     @FXML
     private TextField txtFrontRollDist;
-
     @FXML
     private TextField txtCornerWeightFL;
-
     @FXML
     private TextField txtCornerWeightFR;
-
     @FXML
     private TextField txtCornerWeightRL;
-
     @FXML
     private TextField txtCornerWeightRR;
-
     @FXML
     private TextField txtFrontAxleTireModel;
-
     @FXML
     private TextField txtFrontAxleSlipAngel;
-
     @FXML
     private TextField txtFrontAxleLoad;
-
     @FXML
     private TextField txtRearAxleTireModel;
-
     @FXML
     private TextField txtRearAxleSlipAngel;
-
     @FXML
     private TextField txtRearAxleLoad;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelC;
-
     @FXML
     private TextField txtFrontAxleSlipAngelC;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelB;
-
     @FXML
     private TextField txtFrontAxleSlipAngelB;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelE;
-
     @FXML
     private TextField txtFrontAxleSlipAngelE;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelKA;
-
     @FXML
     private TextField txtFrontAxleLoadKA;
-
-    @FXML
-    private Label lblFrontAxleSlipAngelKB;
-
     @FXML
     private TextField txtFrontAxleLoadKB;
-
-    @FXML
-    private Label lblRearAxleTireModel;
-
-    @FXML
-    private Label lblRearAxleSlipAngelC;
-
     @FXML
     private TextField txtRearAxleSlipAngelC;
-
-    @FXML
-    private Label lblRearAxleSlipAngelB;
-
     @FXML
     private TextField txtRearAxleSlipAngelB;
-
-    @FXML
-    private Label lblRearAxleSlipAngelE;
-
     @FXML
     private TextField txtRearAxleSlipAngelE;
-
-    @FXML
-    private Label lblRearAxleSlipAngelKA;
-
     @FXML
     private TextField txtRearAxleLoadKA;
-
-    @FXML
-    private Label lblRearAxleSlipAngelKB;
-
     @FXML
     private Label lblFrontAxleLateralTireForce_Value;
-
     @FXML
     private Label lblRearAxleLateralTireForce_Value;
-
     @FXML
     private TextField txtRearAxleLoadKB;
-
-    @FXML
-    private ResourceBundle resources;
-
     @FXML
     private TabPane tabs;
-
     @FXML
     private Tab tabCar;
-
     @FXML
     private Tab tabAllCars;
-
     @FXML
     private ListView<RaceCar> lvCars;
-
-    private ArrayList<RaceCar> raceCars = new ArrayList<>();
     // endregion
 
     // region Methods
@@ -358,21 +275,12 @@ public class RCASMainViewController {
     public void saveCar(RaceCar raceCar) {
         try {
             raceCars.add(raceCar);
-            setReadOnly(true);
-            detailsPane.setVisible(false);
-            btnAdd.setVisible(true);
+//            lvCars.getItems().add(raceCar);
 
-            Alert confirmSave = new Alert(Alert.AlertType.CONFIRMATION, "Save succesful");
-            confirmSave.showAndWait();
-
-            for (RaceCar car : raceCars) {
-                lvCars.getItems().add(car);
-            }
         } catch (Exception ex) {
             throw ex;
         } finally {
-            tabs.getSelectionModel().select(tabAllCars);
-
+//            tabs.getSelectionModel().select(tabAllCars);
         }
     }
 
@@ -417,7 +325,7 @@ public class RCASMainViewController {
     @FXML
     private void lvCars_OnMouseClicked(Event event) {
         RaceCar car = lvCars.getSelectionModel().getSelectedItem();
-//        bindTabCar(car);
+        bindTabCar(car);
         tabs.getTabs().add(tabCar);
         tabCar.setDisable(false);
         tabCar.getContent().setVisible(true);
@@ -501,10 +409,6 @@ public class RCASMainViewController {
 
         btnAdd.setVisible(readOnly);
         btnAdd.setManaged(readOnly);
-//        btnCancel.setVisible(!readOnly);
-//        btnCancel.setManaged(!readOnly);
-//        btnSave.setVisible(!readOnly);
-//        btnSave.setManaged(!readOnly);
         btnEdit.setVisible(readOnly);
         btnEdit.setManaged(readOnly);
     }
