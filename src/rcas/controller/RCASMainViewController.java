@@ -341,7 +341,7 @@ public class RCASMainViewController {
             FXMLLoader e = new FXMLLoader(RCASMainViewController.class.getResource("../../RCASAddCarWindowView.fxml"));
             ResourceBundle resourceBundle = ResourceBundle.getBundle("RCASResources");
             e.setResources(resourceBundle);
-            Pane mainPane = (Pane) e.load();
+            Pane mainPane = e.load();
             Scene mainScene = new Scene(mainPane, mainPane.getPrefWidth(), mainPane.getPrefHeight());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -390,21 +390,18 @@ public class RCASMainViewController {
     private void btnEditClicked() {
         setReadOnly(false);
         btnAdd.setVisible(false);
-//        btnCancel.setVisible(true);
         btnEdit.setVisible(false);
-
-
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(RCASMainViewController.class.getResource("../../RCASAddCarWindowView.fxml"));
             ResourceBundle resourceBundle = ResourceBundle.getBundle("RCASResources");
             fxmlLoader.setResources(resourceBundle);
+
+            RCASSecondWindowController controller = fxmlLoader.getController();
             Pane mainPane = fxmlLoader.load();
+            RaceCar selectedCar = lvCars.getSelectionModel().getSelectedItem();
+            RCASSecondWindowController.raceCar = selectedCar;
 
-            RCASSecondWindowController controller =  fxmlLoader.<RCASSecondWindowController>getController();
-            controller.raceCar = lvCars.getSelectionModel().getSelectedItem();
-
-//            Pane mainPane = (Pane) fxmlLoader.load();
             Scene mainScene = new Scene(mainPane, mainPane.getPrefWidth(), mainPane.getPrefHeight());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

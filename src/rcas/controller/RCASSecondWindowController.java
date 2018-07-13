@@ -1,21 +1,15 @@
 package rcas.controller;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import rcas.model.MagicFormulaTireModel;
 import rcas.model.RaceCar;
 
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -87,12 +81,16 @@ public class RCASSecondWindowController {
     @FXML
     private ResourceBundle resources;
 
+    public static RaceCar raceCar = new RaceCar(0, 0, 0, 0);
+
     @FXML
     public void initialize() {
-        int i = 0;
+        if (raceCar != null) {
+            bindTabCar(raceCar);
+        }
     }
 
-    public RaceCar raceCar;
+
 
 
     @FXML
@@ -204,9 +202,47 @@ public class RCASSecondWindowController {
 //        txtRearAxleLoad.setText("");
     }
 
-    @FXML
-    private void carsTableViewMouseClicked(Event event) {
-//        Object carObj = carsTableView.getSelectionModel().getSelectedItem();
+    public void bindTabCar(RaceCar raceCar) {
+        txtName.setText(raceCar.getName());
+        txtTrack.setText(raceCar.getFrontTrack() + " " + raceCar.getRearTrack());
+        txtWheelbase.setText(raceCar.getWheelbase().toString());
+        txtCogHeight.setText(raceCar.getCogHeight().toString());
+        txtFrontRollDist.setText(raceCar.getFrontRollDist().toString());
+        txtCornerWeightFL.setText(raceCar.getCornerWeightFL().toString());
+        txtCornerWeightFR.setText(raceCar.getCornerWeightFR().toString());
+        txtCornerWeightRL.setText(raceCar.getCornerWeightRL().toString());
+        txtCornerWeightRR.setText(raceCar.getCornerWeightRR().toString());
+
+        // front tire configuration
+        MagicFormulaTireModel frontTireModel = (MagicFormulaTireModel) raceCar.getFrontAxleTireModel();
+        txtFrontAxleTireModel.setText(frontTireModel.getName());
+        txtFrontAxleLoad.setText("0");
+        txtFrontAxleSlipAngel.setText("0");
+       /* txtFrontAxleSlipAngelB.setText(Double.toString(frontTireModel.getSlipAngleCoefficientB()));
+        txtFrontAxleSlipAngelC.setText(Double.toString(frontTireModel.getSlipAngleCoefficientC()));
+        txtFrontAxleSlipAngelE.setText(Double.toString(frontTireModel.getSlipAngleCoefficientE()));
+        txtFrontAxleLoadKA.setText(Double.toString(frontTireModel.getLoadCoefficientKA()));
+        txtFrontAxleLoadKB.setText(Double.toString(frontTireModel.getLoadCoefficientKB()));*/
+        Double frontLateralTireForce = frontTireModel.getLateralTireForce(frontTireModel.getSlipAngleCoefficientB(), frontTireModel.getLoadCoefficientKA());
+        //lblFrontAxleLateralTireForce_Value.setText(frontLateralTireForce.toString());
+
+        // rear tire configuration
+        MagicFormulaTireModel rearTireModel = (MagicFormulaTireModel) raceCar.getRearAxleTireModel();
+        txtRearAxleTireModel.setText(rearTireModel.getName());
+        txtRearAxleLoad.setText("0");
+        txtRearAxleSlipAngel.setText("0");
+       /* txtRearAxleSlipAngelB.setText(Double.toString(rearTireModel.getSlipAngleCoefficientB()));
+        txtRearAxleSlipAngelC.setText(Double.toString(rearTireModel.getSlipAngleCoefficientC()));
+        txtRearAxleSlipAngelE.setText(Double.toString(rearTireModel.getSlipAngleCoefficientE()));
+        txtRearAxleLoadKA.setText(Double.toString(rearTireModel.getLoadCoefficientKA()));
+        txtRearAxleLoadKB.setText(Double.toString(rearTireModel.getLoadCoefficientKB()));*/
+        Double rearLateralTireForce = rearTireModel.getLateralTireForce(rearTireModel.getSlipAngleCoefficientB(), rearTireModel.getLoadCoefficientKA());
+        //lblRearAxleLateralTireForce_Value.setText(rearLateralTireForce.toString());
+
+        // CorneringAnalyserUtil corneringAnalyserUtil = new CorneringAnalyserUtil();
+        // ObservableList<XYChart.Series<Number, Number>> dataList = corneringAnalyserUtil.generateMMMChartData(raceCar);
+        // mainChart.getData().addAll(dataList);
+        // this.setSeriesStyle(dataList, ".chart-series-line", "-fx-stroke: red; -fx-stroke-width: 1px;");
     }
     // endregion
 
